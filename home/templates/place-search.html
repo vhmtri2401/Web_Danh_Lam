@@ -1,0 +1,79 @@
+{% extends 'homebase.html' %}
+{% block title %} Search Result  {% endblock %}
+
+{% block inner_headline %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <div class="inner-heading">
+                    <h2>Search Results</h2>
+                </div>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li class="active">Search Results</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block main_content %}
+
+		<div class="row">
+          <div class="span12">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    Image
+                  </th>
+                  <th>
+                    Place
+                  </th>
+                  <th>
+                    Category
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+              	{% if results %}
+              	{% for result in results %}
+                <tr>
+                  <td>
+                    <a href="/place/{{ result.id }}/{{ result.slug }}"><img style="width: 175px; height: 75px;" src="{{ result.image.url }}"></a>
+                  </td>
+                  <td>
+                    <a href="/place/{{ result.id }}/{{ result.slug }}">{{ result.title }}</a>
+                  </td>
+                  <td>
+                    <a href="/place">{{ result.category }}</a>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                	<td colspan="3">
+                		There is no result for your search query. Please try another place or you can check out places by clicking <strong><a href="/place">here</a></strong>
+                	</td>
+                </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

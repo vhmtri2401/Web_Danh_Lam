@@ -1,0 +1,50 @@
+{% extends 'homebase.html' %}
+
+{% block title %} FAQ {% endblock %}
+
+{% block inner_headline %}
+
+	<section id="inner-headline">
+      <div class="container">
+        <div class="row">
+          <div class="span4">
+            <div class="inner-heading">
+              <h2>FAQ</h2>
+            </div>
+          </div>
+          <div class="span8">
+            <ul class="breadcrumb">
+              <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+              <li class="active">FAQ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
+
+{% block main_content %}
+
+
+		<div class="span10">
+                <h4><strong>FAQ</strong></h4>
+                <!-- start: Accordion -->
+                {% for faq in faqs %}
+                <div class="accordion" id="accordion2">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ faq.orderNo }}">
+									<i class="icon-plus"></i>{{ faq.question }}</a>
+                    </div>
+                    <div id="{{ faq.orderNo }}" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                      	{{ faq.answer }}
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+
+
+{% endblock %}

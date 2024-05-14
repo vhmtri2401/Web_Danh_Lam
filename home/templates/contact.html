@@ -1,0 +1,84 @@
+{% extends 'homebase.html' %} 
+{% block title %} Contact 
+{% endblock %} 
+{% block keywords %} Liên hệ với chúng tôi {% endblock %} 
+
+{% block inner_headline %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <div class="inner-heading">
+                    <h2>Liên hệ chúng tôi</h2>
+                </div>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li class="active">Liên hệ chúng tôi</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 
+
+{% block main_content %}
+
+<div class="row">
+    <div class="span6">
+        <h4><strong>Hãy liên hệ với chúng tôi bằng cách điền vào mẫu liên hệ dưới đây</strong></h4>
+
+        {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{message.tags}}" role="alert">
+                
+                {{ message }}
+              </div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" class="contactForm">
+            
+            {% csrf_token %}
+            <div id="sendmessage">Tin nhắn của bạn đã được gửi. Cảm ơn!</div>
+            <div id="errormessage">Đã xảy ra lỗi khi gửi tin nhắn của bạn. Vui lòng thử lại.</div>
+
+            <div class="row">
+                <div class="span2 form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Tên của bạn" data-rule="minlen:4" data-msg="Vui lòng nhập ít nhất 4 ký tự" />
+                    <div class="validation"></div>
+                </div>
+                <div class="span2 form-group">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email của bạn" data-rule="email" data-msg="Vui lòng nhập email hợp lệ" />
+                    <div class="validation"></div>
+                </div>
+                <div class="span2 form-group">
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Chủ đề" data-rule="minlen:4" data-msg="Vui lòng nhập ít nhất 4 ký tự của chủ đề" />
+                    <div class="validation"></div>
+                </div>
+                <div class="span6 margintop10 form-group">
+                    <textarea class="form-control" name="message" rows="12" data-rule="required" data-msg="Hãy viết điều gì đó cho chúng tôi" placeholder="Tin nhắn"></textarea>
+                    <div class="validation"></div>
+                    <p class="text-center">
+                        <button class="btn btn-large btn-theme margintop10" type="submit">Gửi tin nhắn</button>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="span6">
+        {{ contact.contact |safe }}
+    </div>
+</div>
+
+{% endblock %} 
+
+{% block css %} 
+
+{% endblock %} 
+
+{% block js %} 
+
+{% endblock %}

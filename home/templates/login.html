@@ -1,0 +1,119 @@
+{% extends 'homebase.html' %}
+{% block title %} Đăng Nhập {% endblock %}
+
+{% block inner_headline %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <div class="inner-heading">
+                    <h2>Đăng Nhập</h2>
+                </div>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li class="active">Đăng Nhập</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block main_content %}
+
+                            {% if messages %}
+          						{% for message in messages %}
+              						<div class="alert alert-{{message.tags}}" role="alert">
+                						{{ message }}
+              						</div>
+         						 {% endfor %}
+        					{% endif %}
+
+                        
+                        <div id="mySignin" aria-labelledby="mySigninModalLabel" class="span5">
+                            <div class="modal-header">
+                                <h4 id="mySigninModalLabel"><strong>Đăng Nhập</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="/login/" class="form-horizontal">
+                                    {% csrf_token %}
+                                    <div class="control-group">
+                                        <label class="control-label" for="inputText">Username</label>
+                                        <div class="controls">
+                                            <input type="text" name="username" id="inputText" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="inputSigninPassword">Password</label>
+                                        <div class="controls">
+                                            <input type="password" name="password" id="inputSigninPassword" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <button type="submit" class="btn">Sign in</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+	<div id="mySignup" aria-labelledby="mySignupModalLabel" class="span6">
+                            <div class="modal-header">
+                                <h4 id="mySignupModalLabel"><strong>Đăng kí</strong></h4>
+                            </div>
+                            <div  class="modal-body">
+                                <form method="post" action="/signup/" class="form-horizontal">
+                                	{% csrf_token %}
+                                	<div class="control-group">
+                                        <label class="control-label" >Họ</label>
+                                        <div class="controls">
+                                            <input type="text" name="first_name" placeholder="Họ">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Tên</label>
+                                        <div class="controls">
+                                            <input type="text" name="last_name" placeholder="Tên">
+                                        </div>
+                                    </div>
+                                	<div class="control-group">
+                                        <label class="control-label">Tên đăng nhập</label>
+                                        <div class="controls">
+                                            <input type="text" name="username" placeholder="Tên đăng nhập">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Email</label>
+                                        <div class="controls">
+                                            <input type="email" name="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Mật khẩu</label>
+                                        <div class="controls">
+                                            <input type="password" name="password1" placeholder="Mật khẩu">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Nhập lại Mật khẩu</label>
+                                        <div class="controls">
+                                            <input type="password" name="password2" placeholder="Mật khẩu">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <button type="submit" class="btn">Đăng kí</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+{% endblock %}

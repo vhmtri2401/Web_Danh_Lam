@@ -1,0 +1,107 @@
+{% extends 'homebase.html' %} 
+{% block title %} {{ setting.title }} {% endblock %} 
+{% block keywords %} {{ setting.keywords }} {% endblock %} 
+{% block description %} {{ setting.description }} {% endblock %} 
+
+{% block slider %}
+<section id="featured">
+<div id="nivo-slider">
+        <div style="height: 400px; width: 100%;" class="nivo-slider">
+            {% for sliderimage in slider %}
+            <a href="/place/{{ sliderimage.id }}/{{sliderimage.slug}}"><img style="height: 600px; width: 1800px;" src="{{ sliderimage.image.url }}" alt="" title="#caption-{{ sliderimage.id }}"/></a> 
+            {% endfor %}
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    {% for sliderdata in slider %}
+                    <div class="nivo-caption" id="caption-{{ sliderdata.id }}">
+                        <div>
+                            <h2> {{ sliderdata.title }} </h2>
+                            <p>{{ sliderdata.description }}</p>
+                            <a href="/place/{{ sliderdata.id }}/{{ sliderdata.slug }}" class="btn btn-theme">Read More</a>
+                        </div>
+                    {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     </section>
+{% endblock %} 
+
+{% block main_content %} 
+
+{% load static %}
+
+<!-- Portfolio Projects -->
+<div class="row">
+    <div class="span12">
+        <h4 class="heading"><strong>Địa điểm</strong> được thêm mới nhất</h4>
+        <div class="row">
+            <section id="projects">
+                <ul id="thumbs" class="portfolio">
+                    <!-- Item Project and Filter Name -->
+                    {% for best in bestPlaces %}
+                    <li class="item-thumbs span3 design" data-id="id-0" data-type="web">
+                        <!-- Fancybox - Gallery Enabled - Title - Full Image -->
+                        <a data-fancybox-group="gallery" title="{{ best.title }}" href="{{ best.image.url }}">
+                        </a>
+                        <!-- Thumb Image and Description -->
+                        <a href="/place/{{ best.id }}/{{ best.slug }}"><img style="width: 570px; height: 200px;" src="{{ best.image.url }}" alt="{{ best.description }}"> </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- End Portfolio Projects -->
+<!-- divider -->
+<div class="row">
+    <div class="span12">
+        <div class="solidline">
+        </div>
+    </div>
+</div>
+<!-- end divider -->
+<div class="row">
+    <div class="span12">
+        <h4>Đừng bỏ qua những địa điểm này!</h4>
+        <ul id="mycarousel" class="jcarousel-skin-tango recent-jcarousel clients">
+            {% for place in checkOutPlaces %}
+            <li>
+                <a href="place/{{ place.id }}/{{ place.slug }}">
+                    <img style="width: 310px; height: 120px;" src="{{ place.image.url }}" class="client-logo" alt="" />
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<section id="bottom">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="aligncenter">
+                    <div id="twitter-wrapper">
+                        <div id="twitter">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %} 
+
+{% block css %}
+
+<link rel="shortcut icon" type="image/x-icon" href=" {{ setting.icon.url }} " /> 
+{% endblock %} 
+
+{% block js %} 
+
+{% endblock %}

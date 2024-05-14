@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Place Gallery</title>
+	{% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/fancybox/jquery.fancybox.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jcarousel.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/flexslider.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <!-- Theme skin -->
+    <link href="{% static 'skins/default.css' %}" rel="stylesheet" />
+    <!-- Fav and touch icons -->
+	<script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/jcarousel/jquery.jcarousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
+    <script src="{% static 'js/jquery.fancybox-media.js' %}"></script>
+    <script src="{% static 'js/google-code-prettify/prettify.js' %}"></script>
+    <script src="{% static 'js/portfolio/jquery.quicksand.js' %}"></script>
+    <script src="{% static 'js/portfolio/setting.js' %}"></script>
+    <script src="{% static 'js/jquery.flexslider.js' %} "></script>
+    <script src="{% static 'js/jquery.nivo.slider.js' %}"></script>
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script src="{% static 'js/jquery.ba-cond.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slitslider.js' %}"></script>
+    <script src="{% static 'js/animate.js' %}"></script>
+
+    <!-- Template Custom JavaScript File -->
+    <script src="{% static 'js/custom.js' %}"></script>
+ 
+</head>
+<body>
+
+<h2>{{ places.title }}</h2>
+<hr>
+	{% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+    			{{ message|safe }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+    	
+    	{% csrf_token %}
+    	<input type="hidden" name="place_id" id="id_place_id" value="{{ places.id }}">
+    	<label for="id_title">Tên:</label>
+    	<input type="text" name="title" class="input" placeholder="title" maxlength="50" id="id_title">
+    	<label for="id_image">Image:</label>
+    	<input type="file" name="image" class="input" accept="image/*" id="id_image">
+    	<button class="btn btn-success" type="submit">Upload</button>
+    </form>
+
+<hr>
+
+<h4>Images hiện có</h4>
+
+{% if images %}
+              <section id="projects">
+                <ul id="thumbs" class="portfolio">
+                  <!-- Item Project and Filter Name -->
+                  <!-- End Item Project -->
+                  <!-- Item Project and Filter Name -->
+                  {% for image in images %}
+                  <li class="item-thumbs span3 design" data-id="id-1" data-type="icon">
+                    <!-- Fancybox - Gallery Enabled - Title - Full Image -->
+                    <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="{{ image.title }}" href="{{image.image.url}}">
+						<span class="overlay-img"></span>
+						<span class="overlay-img-thumb font-icon-plus"></span>
+						</a>
+                    <!-- Thumb Image and Description -->
+                    <img style="height: 150px; width: 250px;" src="{{ image.image.url }}" alt="{{ places.title }}">
+                  </li>
+                  {% endfor %}
+                 </ul>
+             </section>
+	
+{% else %}
+    Bạn không có sẵn hình ảnh
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+{% extends 'homebase.html' %} 
+
+{% block title %} {{ place.title }}  {% endblock %} 
+
+{% block keywords %} {{ place.keywords }} {% endblock %} 
+
+{% block description %} {{ place.description }} {% endblock %} 
+
+{% block inner_headline %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <div class="inner-heading">
+                    <h2>{{ place.title }}</h2>
+                </div>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li><a href="/place">Địa điểm</a><i class="icon-angle-right"></i></li>
+                    <li class="active">{{ place.title }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %} 
+
+{% block main_content %}
+
+<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <article>
+                    <div class="top-wrapper">
+                        <div class="post-heading">
+                            <h3><a href="#"></a></h3>
+                        </div>
+                        <!-- start flexslider -->
+                        <div class="flexslider">
+                            <ul class="slides">
+                                <li>
+                                    <img style="height: 400px; width: 900px;" src="{{ place.image.url }}">
+                                </li>
+                                {% for image in gallery %}
+                                <li>
+                                    <img style="height: 400px; width: 900x;" src="{{ image.image.url }}" alt="" />
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- end flexslider -->
+                    </div>
+                    <p>
+                        {{ place.detail|safe }}
+                    </p>
+
+                    <div class="bottom-article">
+                        <ul class="meta-post">
+                            <li><i class="icon-user"></i><a href="#"> {{ place.user.username }}</a></li>
+                            <li><i class="icon-folder-open"></i><a href="#"> {{ place.category.title }}</a></li>
+                            <li><i class="icon-tags"></i><a href="#">{{ place.title }}</a></li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+            <div class="span4">
+                <aside class="right-sidebar">
+                    <div class="widget">
+                        <h5 class="widgetheading">Thông Tin Địa Điểm</h5>
+                        <ul class="folio-detail">
+                            <li>
+                                <label>Tên :</label> {{ place.title }} </li>
+                            <li>
+                                <label>Giới Thiệu: </label> {{ place.description }} </li>
+                            <li>
+                                <label>Keywords: </label> {{ place.keywords }} </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h5 class="widgetheading">Bài Viết Mới Nhất</h5>
+                        <ul class="recent">
+                            {% for places in lastPlaces %}
+                            <li>
+                                <a href="/place/{{ places.id }}/{{ places.slug }}"><img style="width: 65px; height: 65px;" src="{{ places.image.url }}" class="pull-left" alt="" /></a>
+                                <h6><a href="/place/{{ places.id }}/{{ places.slug }}">{{ places.title }}</a></h6>
+                                <p>
+                                    {{ places.description }}
+                                </p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <div class="span8">
+                <div class="comment-area">
+                    <h4>Bình Luận</h4> 
+                  {% for comment in comments %}
+                    <div class="media">
+                        {% load static %}
+                        <a href="#" class="thumbnail pull-left"><img style="height: 75px; width: 75px;" src="{{ comment.user.userprofile.image.url }}" alt="" /></a>
+                        <div class="media-body">
+                            <div class="media-content">
+                                <h6><span>{{ comment.created_at }}</span> {{ comment.user.first_name }}</h6>
+                                <p>
+                                    {{ comment.comment }}
+                                </p>
+                                <a href="#" class="align-right">Phản hồi bình luận</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} 
+                    <h4>Để Lại Bình Luận Của Bạn</h4>
+
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{message.tags}}" role="alert">
+                              {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form action="/place/comment/{{ place.id }}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="span4">
+                                <input type="text" id="subject" name="subject" placeholder="Tiêu đề" />
+                            </div>
+                            <div class="span4">
+                                <label>Đánh giá:
+                                    <select id="rate" name="rate">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="span8 margintop10">
+                                <p>
+                                    <textarea rows="12" name="comment" id="comment" class="input-block-level" placeholder="*Bình Luận ở đây"></textarea>
+                                </p>
+                                <p>
+                                    {% if user.id is not None %}
+                                        <button class="btn btn-theme margintop10" type="submit">Gửi</button>
+                                    {% else %}
+                                        <h5>Bạn phải đăng nhập để bình luận. Nhấp vào đây. <a href="/login">Nhấp vào đây</a> để đăng nhập.</h5> 
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %} 
+
+{% block css %} 
+
+
+{% endblock %} 
+
+{% block js %} 
+
+
+{% endblock %}

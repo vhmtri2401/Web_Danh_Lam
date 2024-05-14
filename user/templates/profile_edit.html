@@ -1,0 +1,94 @@
+{% extends 'homebase.html' %}
+{% block title %} Hồ sơ {% endblock %}
+
+{% block inner_headline %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <div class="inner-heading">
+                    <h2>{{ user.first_name }} {{ user.last_name }} Chỉnh sửa Hồ Sơ</h2>
+                </div>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li class="active">{{ user.first_name }} {{ user.last_name }} Chỉnh sửa Hồ Sơ</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block main_content %}
+
+<div class="row">
+    <div class="span12">
+        <h4> <strong>Cập nhật Thông tin</strong></h4>
+
+        {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{message.tags}}" role="alert">
+                {{ message }}
+              </div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" class="contactForm">   
+            {% csrf_token %}
+            <img style="height: 200px; width: 200px; border-radius: 20px; margin-bottom: 10px;" src="{{ profile.image.url }}">
+
+            <div class="row">
+            	<div class="span8 form-group">
+                	<label>Image</label> 
+                	<input type="file" name="image" class="input" accept="images/users/*">
+                </div>
+                <div class="span8 form-group">
+                	<label class="control-label" for="inputText">Tên đăng nhập</label>
+                    <input type="text" name="username" class="form-control" value="{{ profile.user.username }}"/>
+                </div>
+                <div class="span8 form-group">
+                	<label class="control-label" for="inputText">Họ</label>
+                    <input type="text" class="form-control" name="first_name" value="{{ profile.user.first_name }}"  />
+                </div>
+                <div class="span8 form-group">
+                	<label class="control-label" for="inputText">Tên</label>
+                    <input type="text" class="form-control" name="last_name" value="{{ profile.user.last_name }}" />
+                </div>
+                <div class="span8 form-group">
+                	<label class="control-label" for="inputText">Email</label>
+                    <input type="email" class="form-control" name="email" value="{{ profile.user.email }}" />
+                </div>
+                <div class="span8 form-group">
+                	<label class="control-label" for="inputText">Phone</label>
+                    <input type="text" class="form-control" name="phone" value="{{ profile.phone }}" />
+                </div>
+                <div class="span8 form-group">
+                	<label class="control-label" for="inputText">Thành Phố</label>
+                    <input type="text" class="form-control" name="city" value="{{ profile.city }}" />
+                </div>
+                <div class="span8 form-group">
+                	<label class="control-label" for="inputText">Quốc gia</label>
+                    <input type="text" class="form-control" name="country" value="{{ profile.country }}" />
+                </div>
+                <p class="span8 text-center">
+                    <button class="btn btn-large btn-theme margintop10" type="submit">Cập nhật</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
