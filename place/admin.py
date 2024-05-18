@@ -1,5 +1,5 @@
 from django.contrib import admin
-from place.models import Category, Place, Images, Comment
+from place.models import District, Place, Images, Comment
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.utils.html import format_html
 # Register your models here.
@@ -16,7 +16,7 @@ class PlaceImageInline(admin.TabularInline):
 	extra= 5
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class DistrictAdmin(admin.ModelAdmin):
 
 	list_display=['title', 'status','parent','image_tag']
 	list_filter=['status','created_at']
@@ -24,8 +24,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class PlaceAdmin(admin.ModelAdmin):
 
-	list_display=['title','category','image_tag','status']
-	list_filter=['status','created_at','category']
+	list_display=['title','district','image_tag','status']
+	list_filter=['status','created_at','district']
 	inlines=[PlaceImageInline]
 	readonly_fields=('image_tag',)
 	prepopulated_fields={'slug':('title',)}
@@ -35,7 +35,7 @@ class ImageAdmin(admin.ModelAdmin):
 	readonly_fields=('image_tag',)
 
 
-class CategoryAdmin2(DraggableMPTTAdmin):
+class DistrictAdmin2(DraggableMPTTAdmin):
 	
 	mptt_indent_field="title"
 	list_display=('tree_actions', 'indented_title', 'related_places_count', 
@@ -46,17 +46,17 @@ class CategoryAdmin2(DraggableMPTTAdmin):
 	def get_queryset(self, request):
 		qs= super().get_queryset(request)
 
-		qs=Category.objects.add_related_count(
+		qs=District.objects.add_related_count(
 			qs,
 			Place,
-			'category',
+			'district',
 			'places_cumulative_count',
 			cumulative=True)
 
-		qs=Category.objects.add_related_count(
+		qs=District.objects.add_related_count(
 			qs,
 			Place,
-			'category',
+			'district',
 			'places_count',
 			cumulative=False)
 
@@ -64,7 +64,7 @@ class CategoryAdmin2(DraggableMPTTAdmin):
 
 	def related_places_count(self, instance):
 		return instance.places_count
-	related_places_count.short_description='Related Places (For This Category)'
+	related_places_count.short_description='Related Places (For This District)'
 
 	def related_places_cumulative_count(self, instance):
 		return instance.places_cumulative_count
@@ -76,7 +76,7 @@ class CommentAdmin(admin.ModelAdmin):
 	list_filter=['status', 'created_at']
 	list_editable=['status']
 
-admin.site.register(Category, CategoryAdmin2)
+admin.site.register(District, DistrictAdmin2)
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Images, ImageAdmin)
 admin.site.register(Comment,CommentAdmin)

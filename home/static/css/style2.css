@@ -1924,24 +1924,24 @@ section {
   background: #fd5c28;
 }
 
-.blog .sidebar .categories ul {
+.blog .sidebar .districts ul {
   list-style: none;
   padding: 0;
 }
 
-.blog .sidebar .categories ul li + li {
+.blog .sidebar .districts ul li + li {
   padding-top: 10px;
 }
 
-.blog .sidebar .categories ul a {
+.blog .sidebar .districts ul a {
   color: #745f56;
 }
 
-.blog .sidebar .categories ul a:hover {
+.blog .sidebar .districts ul a:hover {
   color: #f03c02;
 }
 
-.blog .sidebar .categories ul a span {
+.blog .sidebar .districts ul a span {
   padding-left: 5px;
   color: #9c847b;
   font-size: 14px;

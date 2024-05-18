@@ -27,7 +27,7 @@ class UserContentForm(ModelForm):
 
 	class Meta:
 		model= Place
-		fields=['category', 'title',  'slug', 'keywords', 'description', 'image', 'detail']
+		fields=['district', 'title',  'slug', 'keywords', 'description', 'image', 'detail']
 		widgets={
 
 			'title': forms.TextInput(attrs={'class':'input'}),

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from home.models import UserProfile
-from place.models import Category, Comment, Place, UserContentImageForm, Images
+from place.models import District, Comment, Place, UserContentImageForm, Images
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
@@ -20,10 +20,10 @@ def profile(request):
 
 	current_user=request.user
 	profile= UserProfile.objects.get(user_id=current_user.id)
-	categories=Category.objects.all()
+	districts=District.objects.all()
 	comments=Comment.objects.filter(user_id=current_user.id).order_by('-id')
 	places=Place.objects.filter(user_id=current_user.id).order_by('-id')
-	content={ 'profile':profile, 'categories':categories, 'comments':comments, 'places':places,}
+	content={ 'profile':profile, 'districts':districts, 'comments':comments, 'places':places,}
 	return render(request, 'profile.html',content)
 
 @login_required(login_url='/login')
@@ -41,12 +41,12 @@ def profile_edit(request):
 			messages.warning(request,profile_form.errors)
 			return HttpResponseRedirect('/user/profile_edit')
 	else:
-		categories=Category.objects.all()
+		districts=District.objects.all()
 		current_user=request.user
 		user_form=UserUpdateForm(instance=request.user)
 		profile_form=ProfileUpdateForm(instance=request.user.userprofile)
 		profile=UserProfile.objects.get(user_id=current_user.id)
-		content={'categories':categories, 'profile':profile, 'profile_form':profile_form }
+		content={'districts':districts, 'profile':profile, 'profile_form':profile_form }
 		return render(request, 'profile_edit.html', content)
 
 
@@ -64,19 +64,19 @@ def change_password(request):
 			messages.warning(request, "Please Correct the Error Below. <br>" + str(form.errors))
 			return HttpResponseRedirect('/user/change_password')
 	else:
-		categories=Category.objects.all()
+		districts=District.objects.all()
 		form=PasswordChangeForm(request.user)
-		content={'form':form, 'categories':categories}
+		content={'form':form, 'districts':districts}
 		return render(request, 'password_change.html', content)
 
 
 @login_required(login_url='/login')
 def user_comments(request):
 
-	categories=Category.objects.all()
+	districts=District.objects.all()
 	current_user=request.user
 	comments=Comment.objects.filter(user_id=current_user.id)
-	content={'categories':categories, 'comments':comments, }
+	content={'districts':districts, 'comments':comments, }
 	return render(request, 'profile.html', content)
 
 
@@ -92,10 +92,10 @@ def deletecomment(request,id):
 @login_required(login_url='/login')
 def user_places(request):
 
-	categories=Category.objects.all()
+	districts=District.objects.all()
 	current_user=request.user
 	places=Place.objects.filter(user_id=current_user.id)
-	content={'categories':categories, 'places':places, }
+	content={'districts':districts, 'places':places, }
 	return render(request, 'profile.html', content)
 
 
@@ -109,7 +109,7 @@ def addcontent(request):
 			current_user=request.user
 			data=Place()
 			data.user_id=current_user.id
-			data.category=form.cleaned_data['category']
+			data.district=form.cleaned_data['district']
 			data.title=form.cleaned_data['title']
 			data.keywords=form.cleaned_data['keywords']
 			data.description=form.cleaned_data['description']
@@ -124,8 +124,8 @@ def addcontent(request):
 			messages.warning(request, "Please Correct the Error in Places Section. <br>" + str(form.errors))
 			return HttpResponseRedirect('/user/addcontent')
 	else:
-		categories=Category.objects.all()
-		content={'categories':categories, 'form':form,}
+		districts=District.objects.all()
+		content={'districts':districts, 'form':form,}
 		return render(request, 'add-content.html', content)
 
 @login_required(login_url='/login')
@@ -142,9 +142,9 @@ def editplace(request,id):
 			messages.warning(request, "Please Correct the Error in Places Section. <br>" + str(form.errors))
 			return HttpResponseRedirect('/user/editplace/'+str(id))
 	else:
-		categories=Category.objects.all()
+		districts=District.objects.all()
 		form=UserContentForm(instance=place)
-		content={'categories':categories, 'form':form,}
+		content={'districts':districts, 'form':form,}
 		return render(request, 'add-content.html',content)
 
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from place.models import Comment, CommentForm,Place, Category
+from place.models import Comment, CommentForm,Place, District
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SearchForm
@@ -35,22 +35,23 @@ def placeComment(request,id):
 			data.rate=form.cleaned_data['rate']
 			data.ip=request.META.get('REMOTE_ADDR')
 			data.save()
-			messages.success(request, "Thanks For Your Comment! Your Comment Will Be Shown After Approved.")
+			messages.success(request, "Cám ơn bạn đã góp ý! Bình luận của bạn sẽ được hiển thị sau khi được phê duyệt.")
 			return HttpResponseRedirect(url)
 
-	messages.warning(request, "Your Comment Could Not Been Sent. Please Check Your Comment.")
+	messages.warning(request, "Bình luận của bạn không thể được gửi. Vui lòng kiểm tra bình luận của bạn.")
 	return HttpResponseRedirect(url)
+
 
 def search(request):
 
 	if request.method== 'POST':
 		form=SearchForm(request.POST)
 		if form.is_valid():
-			category=Category.objects.all()
-			categories=Category.objects.all()
+			district=District.objects.all()
+			districts=District.objects.all()
 			query=form.cleaned_data['search']
 			results=Place.objects.filter(title__icontains=query)
-			content={'results':results,'categories':categories}
+			content={'results':results,'districts':districts}
 			return render(request, 'place-search.html', content)
 	return HttpResponseRedirect('/')
 

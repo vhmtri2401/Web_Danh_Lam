@@ -251,7 +251,7 @@
                                             {% load mptt_tags %}
                                             <ul class="dropdown-menu">
 
-                                                {% recursetree categories %}
+                                                {% recursetree districts %}
                                                 <li><a href="/place"> {{ node.title }} </a></li>
                                                     {% if not node.is_leaf_node %}
                                                         <ul>

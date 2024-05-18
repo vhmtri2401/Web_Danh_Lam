@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from home.models import Setting, ContactFormMessage, ContactForm, Faq, UserProfile
-from place.models import Place, Category, Images, Comment
+from place.models import Place, District, Images, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login
@@ -20,19 +20,19 @@ def index(request):
 
 	setting= Setting.objects.get(pk=1)
 	slider= Place.objects.filter(status='True').order_by('?')[:3]
-	categories=Category.objects.all()
+	districts=District.objects.all()
 	checkOutPlaces=Place.objects.filter(status='True')[:10]
 	bestPlaces=Place.objects.filter(status='True').order_by('-id')[:4]
 
-	content= {'setting': setting, 'page': 'home', 'slider':slider, 'categories':categories,
+	content= {'setting': setting, 'page': 'home', 'slider':slider, 'districts':districts,
 				'checkOutPlaces':checkOutPlaces, 'bestPlaces': bestPlaces }
 	return render(request, 'index.html', content)
 
 def about(request):
 
 	about= Setting.objects.get(pk=1)
-	categories=Category.objects.all()
-	content= {'about': about, 'page':'about', 'categories':categories }
+	districts=District.objects.all()
+	content= {'about': about, 'page':'about', 'districts':districts }
 	return render(request, 'about.html', content)
 
 def contact(request):
@@ -53,30 +53,30 @@ def contact(request):
 			return HttpResponseRedirect('/contact')
 
 	contact=Setting.objects.get(pk=1)
-	categories=Category.objects.all()
-	content={'contact':contact, 'page':'contact', 'categories':categories}
+	districts=District.objects.all()
+	content={'contact':contact, 'page':'contact', 'districts':districts}
 	return render(request, 'contact.html', content)
 
 
 def place(request):
 
-	categories=Category.objects.all()
+	districts=District.objects.all()
 	places=Place.objects.filter(status='True')
-	content={'categories' : categories, 'places':places}
+	content={'districts' : districts, 'places':places}
 	return render(request, 'place.html', content)
 
 
 def placeDetail(request,id,slug):
 
 	try:
-		categories=Category.objects.all()
+		districts=District.objects.all()
 		place=Place.objects.get(id=id)
 		gallery= Images.objects.filter(place_id=id)
-		category=Category.objects.all()
+		district=District.objects.all()
 		lastPlaces=Place.objects.filter(status='True').order_by('-id')[:3]
 		comments= Comment.objects.filter(place_id=id,status='True')
-		content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces,
-		 'comments':comments, 'categories':categories}
+		content={'place':place, 'gallery':gallery, 'district':district, 'lastPlaces':lastPlaces,
+		 'comments':comments, 'districts':districts}
 		return render(request, 'place-detail.html', content)
 	except:
 		return HttpResponseRedirect('/error')
@@ -98,8 +98,8 @@ def login_view(request):
 		else:
 			messages.warning(request, "Please check your username or password.")
 			return HttpResponseRedirect('/login')
-	categories=Category.objects.all()
-	content={'categories':categories}
+	districts=District.objects.all()
+	content={'districts':districts}
 	return render(request, 'login.html',content)
 
 
@@ -122,19 +122,19 @@ def signup_view(request):
 		else:
 			messages.warning(request,form.errors)
 			return HttpResponseRedirect('/login/')
-	categories=Category.objects.all()
-	content={'categories':categories}
+	districts=District.objects.all()
+	content={'districts':districts}
 	return render(request, 'login.html',content)
 
 def error(request):
-	categories=Category.objects.all()
-	content={'categories':categories}
+	districts=District.objects.all()
+	content={'districts':districts}
 	return render(request, '404.html',content)
 
 
 
 def faq(request):
-	categories=Category.objects.all()
+	districts=District.objects.all()
 	faqs=Faq.objects.all().order_by('orderNo')
-	content={'categories':categories, 'faqs':faqs}
+	content={'districts':districts, 'faqs':faqs}
 	return render(request, 'faq.html',content)

@@ -32,8 +32,8 @@
             <div class="col-lg-12 d-flex justify-content-center">
                 <ul id="portfolio-flters">
                     <li data-filter="*" class="filter-active">All</li>
-                    {% for category in categories %}
-                    <li data-filter=".filter-{{ category.id }}">{{ category.title }}</li>
+                    {% for district in districts %}
+                    <li data-filter=".filter-{{ district.id }}">{{ district.title }}</li>
                     {% endfor %}
                 </ul>
                 <div class="clearfix"></div>
@@ -43,7 +43,7 @@
         <div class="row portfolio-container" data-aos="fade-up">
             {% for place in places %}
             <div style="width: 100%;" class="portfolio">
-                <div style="max-width: 30.8%" class="col-lg-4 col-md-4 portfolio-item filter-{{ place.category_id }}">
+                <div style="max-width: 30.8%" class="col-lg-4 col-md-4 portfolio-item filter-{{ place.district_id }}">
                     <li class="item-thumbs span4 design" style="list-style: none;">
                         <img style="height: 250px; width: 500px;" src="{{ place.image.url }}" class="img-fluid" alt=""></li>
                     <div class="portfolio-info">
@@ -63,20 +63,20 @@
   
 {% block css %}
 
-<link href="/static/django_website/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="/static/django_website/assets/vendor/venobox/venobox.css" rel="stylesheet">
-<link href="/static/django_website/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="/static/django_website/assets/css/style.css" rel="stylesheet">
+<link href="/static/danhlamthangcanh/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="/static/danhlamthangcanh/assets/vendor/venobox/venobox.css" rel="stylesheet">
+<link href="/static/danhlamthangcanh/assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="/static/danhlamthangcanh/assets/css/style.css" rel="stylesheet">
 {% endblock %}
   
 {% block js %}
 
-<script src="/static/django_website/assets/vendor/jquery-sticky/jquery.sticky.js"></script>
-<script src="/static/django_website/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="/static/django_website/assets/vendor/venobox/venobox.min.js"></script>
-<script src="/static/django_website/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="/static/django_website/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="/static/django_website/assets/vendor/aos/aos.js"></script>
-<script src="/static/django_website/assets/js/main.js"></script>
+<script src="/static/danhlamthangcanh/assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+<script src="/static/danhlamthangcanh/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/static/danhlamthangcanh/assets/vendor/venobox/venobox.min.js"></script>
+<script src="/static/danhlamthangcanh/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="/static/danhlamthangcanh/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/static/danhlamthangcanh/assets/vendor/aos/aos.js"></script>
+<script src="/static/danhlamthangcanh/assets/js/main.js"></script>
 
 {% endblock %}

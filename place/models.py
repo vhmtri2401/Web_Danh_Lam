@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 
 ###########################################################################################
 
-class Category(MPTTModel):
+class District(MPTTModel):
 
 	STATUS=(
 
@@ -25,7 +25,6 @@ class Category(MPTTModel):
 	title= models.CharField(max_length=100)
 	keywords=models.CharField(max_length=255)
 	description=models.CharField(max_length=255)
-	image=models.ImageField(blank=True,upload_to='images/')
 	status=models.CharField(max_length=10, choices=STATUS)
 	slug=models.SlugField(null=False, unique=True)
 	parent=TreeForeignKey('self',blank=True,null=True,related_name='children', on_delete=models.CASCADE)
@@ -57,7 +56,7 @@ class Place(models.Model):
 		('False', 'Inactive')
 	)
 	user=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-	category=models.ForeignKey(Category, on_delete=models.CASCADE) #Relationship with Category Table
+	district=models.ForeignKey(District, on_delete=models.CASCADE) #Relationship with District Table
 	title=models.CharField(max_length=150)
 	keywords=models.CharField(max_length=255)
 	description=models.CharField(max_length=255)
@@ -117,7 +116,7 @@ class CommentForm(ModelForm):
 
 
 def get_absolute_url(self):
-	return reverse('category_detail', kwargs={'slug': self.slug})
+	return reverse('district_detail', kwargs={'slug': self.slug})
 
 
 class UserContentImageForm(ModelForm):
